@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h2><a href="/allOrders.html">Orders</a></h2><h2>Goods</h2>
+
+    <div th:unless="${#lists.isEmpty(allGoods)}">
+        <table border="10">
+            <tr>
+                <td class="ordersList">ID</td>
+                <td class="ordersList">NAME</td>
+                <td class="ordersList">PRICE</td>
+                <td colspan="2" class="ordersList">
+                </td>
+            </tr>
+            <tr th:each="goods : ${allGoods}">
+
+                <td class="ordersList"><span th:text="${goods.getId()}">Id</span></td>
+                <td class="ordersList"><span th:text="${goods.getName()}">Name</span></td>
+                <td class="ordersList"><span th:text="${goods.getPrice()}">Price</span></td>
+
+                <td class="ordersList"><a th:href="@{'/editGoods/' + ${goods.id}}">EDIT</a></td>
+                <td class="ordersList"><a th:href="@{'/deleteGoods/' + ${goods.id}}">DELETE</a></td>
+
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(allGoods)}">
+        <p>You have no Goods in your list</p>
+    </div>
+    <hr/>
+
+    <a href="/addGoods"> ADD NEW GOODS </a>
+</center>
+</body>
+</html>

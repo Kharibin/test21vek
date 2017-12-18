@@ -1,0 +1,20 @@
+body {
+    background-color: azure;
+    font-family: arial, helvetica, sans-serif;
+}
+
+.ordersList {
+    font-size: 12pt;
+    font-weight: bold;
+    background-color: ivory;
+}
+
+label {
+    display: block;
+    width: 100px;
+    background-color: burlywood;
+}
+
+table {
+    border-color: burlywood;
+}

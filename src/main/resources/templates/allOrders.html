@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h2>Orders</h2><h2><a href="/allGoods.html">Goods</a></h2>
+
+    <div th:unless="${#lists.isEmpty(allOrders)}">
+        <table border="10">
+            <tr>
+                <td class="ordersList">ID</td>
+                <td class="ordersList">CLIENT</td>
+                <td class="ordersList">DATE</td>
+                <td class="ordersList">ADDRESS</td>
+                <td colspan="2" class="ordersList">
+                </td>
+            </tr>
+            <tr th:each="order : ${allOrders}">
+
+                <td class="ordersList"><span th:text="${order.getId()}">Id</span></td>
+                <td class="ordersList"><span th:text="${order.client}">Client</span></td>
+                <td class="ordersList"><span th:text="${order.date}">Date</span></td>
+                <td class="ordersList"><span th:text="${order.address}">Address</span></td>
+
+                <td class="ordersList"><a th:href="@{'/editOrder/' + ${order.id}}">EDIT</a></td>
+                <td class="ordersList"><a th:href="@{'/deleteOrder/' + ${order.id}}">DELETE</a></td>
+
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(allOrders)}">
+        <p>You have no orders in your list</p>
+    </div>
+    <hr/>
+
+    <a href="/addOrder"> ADD NEW ORDER </a>
+</center>
+</body>
+</html>

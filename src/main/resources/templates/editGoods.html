@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit goods</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h3>Edit goods</h3>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" size="50" th:value="${goods.getName()}"/>
+        <br/>
+        <label for="price">Price:</label>
+        <input type="text" name="price" size="50" th:value="${goods.getPrice()}"/>
+        <br/>
+        <input type="submit"/>
+    </form>
+</center>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit order</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h3>Edit order</h3>
+    <form method="POST">
+        <label for="client">Client:</label>
+        <input type="text" name="client" size="50" th:value="${order.client}"/><br/>
+        <label for="date">Date:</label>
+        <input type="text" name="date" size="50" th:value="${order.date}"/><br/>
+        <label for="address">Address:</label>
+        <input type="text" name="address" size="50" th:value="${order.address}"/><br/>
+        <br/>
+        <input type="submit"/>
+    </form>
+</center>
+</body>
+</html>
