@@ -17,6 +17,9 @@
                 <td class="ordersList">DATE</td>
                 <td class="ordersList">ADDRESS</td>
                 <td colspan="2" class="ordersList">
+                    <form th:action="@{'/orderById/'}">
+                    <input type="text" placeholder="Search by id here" th:id="searchId" name="searchID"/>
+                    </form>
                 </td>
             </tr>
             <tr th:each="order : ${allOrders}">

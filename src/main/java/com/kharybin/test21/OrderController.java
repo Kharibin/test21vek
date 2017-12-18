@@ -2,11 +2,14 @@ package com.kharybin.test21;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +21,6 @@ public class OrderController {
 
     @Autowired
     private OrderRepository orderRepository;
-
 
 
     @Autowired
@@ -40,21 +42,17 @@ public class OrderController {
         return "allOrders";
     }
 
-    @RequestMapping("/orderById/{id}")
-    public String orderById(Model model, @PathVariable Long id) {
+    @RequestMapping("/orderById/")
+    public String orderById(Model model, @RequestParam("searchID") Long id) {
         List<Order> orders = new ArrayList<>();
-        Order order = null;
-        try {
-            order = orderRepository.getOne(id);
-        } catch (Exception e) {
-            System.out.println("NO SUCH ORDER!");
-            return "noSuchOrder";
-        }
-
-        if (order != null) orders.add(order);
-        if (!orders.isEmpty())
+        if (orderRepository.existsById(id)) {
+            Order order = orderRepository.getOne(id);
+            orders.clear();
+            orders.add(order);
             model.addAttribute("allOrders", orders);
-        return "redirect:/allOrders/";
+            return "allOrders";
+        }
+        else return "/noSuchOrder";
     }
 
     @RequestMapping(value = "/addOrder", method = GET)

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,19 @@ public class GoodsController {
     public String deleteOrder(@PathVariable Long goodsId) {
         goodsRepository.deleteById(goodsId);
         return "redirect:/allGoods/";
+    }
+
+    @RequestMapping("/goodsById/")
+    public String goodsById(Model model, @RequestParam("searchID") Long id) {
+        List<Goods> goodsList = new ArrayList<>();
+        if (goodsRepository.existsById(id)) {
+            Goods goods = goodsRepository.getOne(id);
+            goodsList.clear();
+            goodsList.add(goods);
+            model.addAttribute("allGoods", goodsList);
+            return "allGoods";
+        }
+        else return "/noSuchOrder";
     }
 
 
