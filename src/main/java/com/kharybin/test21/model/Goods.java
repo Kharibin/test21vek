@@ -1,4 +1,4 @@
-package com.kharybin.test21;
+package com.kharybin.test21.model;
 
 import javax.persistence.*;
 

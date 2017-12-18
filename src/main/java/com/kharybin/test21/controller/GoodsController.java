@@ -1,6 +1,8 @@
-package com.kharybin.test21;
+package com.kharybin.test21.controller;
 
 
+import com.kharybin.test21.DAO.GoodsRepository;
+import com.kharybin.test21.model.Goods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,23 +35,6 @@ public class GoodsController {
         return "allGoods";
     }
 
-    @RequestMapping("/goodsById/{id}")
-    public String orderById(Model model, @PathVariable Long id) {
-        List<Goods> goodsList = new ArrayList<>();
-        Goods goods = null;
-        try {
-            goods = goodsRepository.getOne(id);
-        } catch (Exception e) {
-            System.out.println("NO SUCH GOODS!");
-            return "noSuchGoods";
-        }
-
-        if (goods != null) goodsList.add(goods);
-        if (!goodsList.isEmpty())
-            model.addAttribute("allGoods", goodsList);
-        return "redirect:/allGoods/";
-    }
-
     @RequestMapping(value = "/addGoods", method = GET)
     public String showNewGoodsForm() {
         return "addGoods";
@@ -68,7 +53,7 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/editGoods/{goodsId}", method = POST)
-    public String processEditOrder(Goods goods, @PathVariable Long goodsId) {
+    public String processEditGoods(Goods goods, @PathVariable Long goodsId) {
         Goods oldGoods = goodsRepository.getOne(goodsId);
         oldGoods.setName(goods.getName());
         oldGoods.setPrice(goods.getPrice());
@@ -77,7 +62,7 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/deleteGoods/{goodsId}", method = GET)
-    public String deleteOrder(@PathVariable Long goodsId) {
+    public String deleteGoods(@PathVariable Long goodsId) {
         goodsRepository.deleteById(goodsId);
         return "redirect:/allGoods/";
     }
@@ -92,7 +77,7 @@ public class GoodsController {
             model.addAttribute("allGoods", goodsList);
             return "allGoods";
         }
-        else return "/noSuchOrder";
+        else return "/noSuchGoods";
     }
 
 

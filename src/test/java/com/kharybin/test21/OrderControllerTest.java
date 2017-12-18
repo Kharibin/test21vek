@@ -1,5 +1,7 @@
 package com.kharybin.test21;
 
+import com.kharybin.test21.DAO.OrderRepository;
+import com.kharybin.test21.controller.OrderController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

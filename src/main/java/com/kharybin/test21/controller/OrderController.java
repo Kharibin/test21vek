@@ -1,15 +1,15 @@
-package com.kharybin.test21;
+package com.kharybin.test21.controller;
 
 
+import com.kharybin.test21.DAO.OrderRepository;
+import com.kharybin.test21.model.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
