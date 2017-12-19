@@ -1,8 +1,10 @@
 package com.kharybin.test21.service;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
-public interface Service <T> {
+public interface Service<T> {
 
     void add(T dataObj);
 

@@ -1,20 +1,18 @@
 package com.kharybin.test21.controller;
 
 
+import com.kharybin.test21.DAO.GoodsRepository;
 import com.kharybin.test21.DAO.OrderRepository;
 import com.kharybin.test21.model.Goods;
 import com.kharybin.test21.model.Order;
-import com.kharybin.test21.service.Service;
+import com.kharybin.test21.service.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -22,15 +20,29 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 public class GeneralController {
 
+    private ServiceImpl<Order> orderService;
 
-    private Service<Order> orderService;
-
-
-    private Service<Goods> goodsService;
+    private ServiceImpl<Goods> goodsService;
 
     @Autowired
-    public GeneralController(Service<Order> orderService, Service<Goods> goodsService) {
+    public GeneralController(ServiceImpl<Order> orderService, ServiceImpl<Goods> goodsService) {
         this.orderService = orderService;
+        this.goodsService = goodsService;
+    }
+
+    public ServiceImpl<Order> getOrderService() {
+        return orderService;
+    }
+
+    public void setOrderService(ServiceImpl<Order> orderService) {
+        this.orderService = orderService;
+    }
+
+    public ServiceImpl<Goods> getGoodsService() {
+        return goodsService;
+    }
+
+    public void setGoodsService(ServiceImpl<Goods> goodsService) {
         this.goodsService = goodsService;
     }
 
@@ -64,19 +76,19 @@ public class GeneralController {
         return "redirect:/allOrders/";
     }
 
-    @RequestMapping(value = "/editOrder/{orderId}", method = GET)
+    @RequestMapping(value = "/editOrder/{id}", method = GET)
     public String editOrder(@PathVariable Long id, Model model) {
         model.addAttribute("order", orderService.getById(id));
         return "editOrder";
     }
 
-    @RequestMapping(value = "/editOrder/{orderId}", method = POST)
+    @RequestMapping(value = "/editOrder/{id}", method = POST)
     public String processEditOrder(Order order, @PathVariable Long id) {
         orderService.edit(id, order);
         return "redirect:/allOrders/";
     }
 
-    @RequestMapping(value = "/deleteOrder/{orderId}", method = GET)
+    @RequestMapping(value = "/deleteOrder/{id}", method = GET)
     public String deleteOrder(@PathVariable Long id) {
         orderService.delete(id);
         return "redirect:/allOrders/";
@@ -99,19 +111,19 @@ public class GeneralController {
         return "redirect:/allGoods/";
     }
 
-    @RequestMapping(value = "/editGoods/{goodsId}", method = GET)
+    @RequestMapping(value = "/editGoods/{id}", method = GET)
     public String editGoods(@PathVariable Long id, Model model) {
         model.addAttribute("goods", goodsService.getById(id));
         return "editGoods";
     }
 
-    @RequestMapping(value = "/editGoods/{goodsId}", method = POST)
+    @RequestMapping(value = "/editGoods/{id}", method = POST)
     public String processEditGoods(Goods goods, @PathVariable Long id) {
         goodsService.edit(id, goods);
         return "redirect:/allGoods/";
     }
 
-    @RequestMapping(value = "/deleteGoods/{goodsId}", method = GET)
+    @RequestMapping(value = "/deleteGoods/{id}", method = GET)
     public String deleteGoods(@PathVariable Long id) {
         goodsService.delete(id);
         return "redirect:/allGoods/";

@@ -10,11 +10,11 @@
     <h3>Edit order</h3>
     <form method="POST">
         <label for="client">Client:</label>
-        <input type="text" name="client" size="50" th:value="${order.client}"/><br/>
+        <input type="text" name="client" size="50" th:value="${order.get(0).client}"/><br/>
         <label for="date">Date:</label>
-        <input type="text" name="date" size="50" th:value="${order.date}"/><br/>
+        <input type="text" name="date" size="50" th:value="${order.get(0).date}"/><br/>
         <label for="address">Address:</label>
-        <input type="text" name="address" size="50" th:value="${order.address}"/><br/>
+        <input type="text" name="address" size="50" th:value="${order.get(0).address}"/><br/>
         <br/>
         <input type="submit"/>
     </form>

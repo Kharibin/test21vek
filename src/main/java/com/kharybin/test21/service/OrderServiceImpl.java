@@ -1,15 +1,9 @@
 package com.kharybin.test21.service;
 
-import com.kharybin.test21.DAO.GeneralRepository;
 import com.kharybin.test21.DAO.OrderRepository;
-import com.kharybin.test21.model.Order;
-import org.aspectj.weaver.ast.Or;
-import org.hibernate.annotations.ManyToAny;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,23 +11,22 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ServiceImpl<T> implements Service<T>{
+public class OrderServiceImpl<T> {
 
-    private JpaRepository<T, Long> repository;
+    private JpaRepository repository;
 
-    public JpaRepository<T, Long> getRepository() {
+    public JpaRepository getRepository() {
         return repository;
     }
 
-    public void setRepository(JpaRepository<T, Long> repository) {
+    public void setRepository(OrderRepository repository) {
         this.repository = repository;
     }
 
     @Autowired
-    public ServiceImpl(JpaRepository<T, Long> repository) {
+    public OrderServiceImpl(OrderRepository repository) {
         this.repository = repository;
     }
 

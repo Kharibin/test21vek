@@ -10,10 +10,10 @@
     <h3>Edit goods</h3>
     <form method="POST">
         <label for="name">Name:</label>
-        <input type="text" name="name" size="50" th:value="${goods.getName()}"/>
+        <input type="text" name="name" size="50" th:value="${goods.get(0).getName()}"/>
         <br/>
         <label for="price">Price:</label>
-        <input type="text" name="price" size="50" th:value="${goods.getPrice()}"/>
+        <input type="text" name="price" size="50" th:value="${goods.get(0).getPrice()}"/>
         <br/>
         <input type="submit"/>
     </form>
