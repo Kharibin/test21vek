@@ -5,6 +5,7 @@ import com.kharybin.test21.DAO.OrderRepository;
 import com.kharybin.test21.model.Order;
 import org.aspectj.weaver.ast.Or;
 import org.hibernate.annotations.ManyToAny;
+import org.hibernate.proxy.HibernateProxyHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -17,7 +18,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+
 
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ServiceImpl<T> implements Service<T>{
@@ -45,11 +46,13 @@ public class ServiceImpl<T> implements Service<T>{
 
     public void edit(Long id, T newObj) {
         if (repository.existsById(id)) {
-            T old = (T)repository.getOne(id);
-            if (old.getClass().equals(newObj.getClass())) {
+            repository.save(newObj);
+            /*HibernateProxyHelper.getClassWithoutInitializingProxy(repository.getOne(id));
+            //if (old.getClass().equals(newObj.getClass())) {
                 for (Field x : old.getClass().getDeclaredFields()) {
                     if (!x.getName().equals("id")) {
                         x.setAccessible(true);
+                        System.out.println(x.getName());
                         try {
                             newObj.getClass().getDeclaredField(x.getName()).setAccessible(true);
                             x.set(old, newObj.getClass().getDeclaredField(x.getName()).get(newObj));
@@ -59,7 +62,9 @@ public class ServiceImpl<T> implements Service<T>{
                     }
                 }
                 repository.save(old);
-            } else System.out.println("different class!!");
+            //} else System.out.println("different class!!");
+            System.out.println(old.getClass().toString());
+            System.out.println(newObj.getClass().toString());*/
         } else System.out.println("no such object in repository!");
     }
 

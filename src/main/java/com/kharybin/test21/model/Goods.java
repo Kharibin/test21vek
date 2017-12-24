@@ -1,18 +1,22 @@
 package com.kharybin.test21.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "GOODS")
-public class Goods extends BaseClass{
+public class Goods {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
     private String name;
 
-    private Double price;
+
+    private Long price;
 
 
     public Long getId() {
@@ -31,11 +35,11 @@ public class Goods extends BaseClass{
         this.name = name;
     }
 
-    public Double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 }

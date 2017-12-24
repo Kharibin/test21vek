@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h2><a href="/allOrders.html">Orders</a></h2><h2><a href="/allGoods.html">Goods</a></h2><h2>Order Lines</h2>
+
+    <div th:unless="${#lists.isEmpty(allOrderLines)}">
+        <table border="10">
+            <tr>
+                <td class="ordersList">ID</td>
+                <td class="ordersList">ORDER ID</td>
+                <td class="ordersList">GOODS ID</td>
+                <td class="ordersList">COUNT</td>
+                <td colspan="4" class="ordersList">
+                    <form th:action="@{'/goodsById/'}">
+                        <input type="text" placeholder="Search by id here" th:id="searchId" name="searchID"/>
+                    </form>
+                </td>
+            </tr>
+            <tr th:each="orderLine : ${allOrderLines}">
+
+                <td class="ordersList"><span th:text="${orderLine.getId()}">Id</span></td>
+                <td class="ordersList"><a th:href="@{'/orderById/' + '?searchID=' + ${orderLine.getOrderId()}}">
+                    <span th:text="${orderLine.getOrderId()} + ' '
+                    + ${orderService.getById(orderLine.getOrderId()).get(0).getClient()}">OrderID</span></a></td>
+                <td class="ordersList"><a th:href="@{'/goodsById/' + '?searchID=' + ${orderLine.getGoodsId()}}">
+                    <span th:text="${orderLine.getGoodsId()} + ' '
+                    + ${goodsService.getById(orderLine.getGoodsId()).get(0).getName()}">GoodsID</span></a></td>
+                <td class="ordersList"><span th:text="${orderLine.getCount()}">Count</span></td>
+
+                <td class="ordersList"><a th:href="@{'/editOrderLine/' + ${orderLine.getOrderId()}}">EDIT ORDER LINE</a></td>
+                <td class="ordersList"><a th:href="@{'/deleteOrderLine/' + ${orderLine.id}}">DELETE</a></td>
+
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(allOrderLines)}">
+        <p>You have no order lines to show</p>
+    </div>
+    <hr/>
+
+    <a href="/addOrderLine"> ADD NEW ORDER LINE </a>
+</center>
+</body>
+</html>

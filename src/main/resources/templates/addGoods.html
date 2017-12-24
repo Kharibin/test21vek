@@ -6,17 +6,19 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<center>
+<div class="inputForm">
     <h3>Add new goods</h3>
     <form method="POST">
-        <label for="Name">Name:</label>
-        <input type="text" name="name" size="50"/><br/>
-        <label for="price">Price:</label>
-        <input type="text" name="price" size="50"/>
-        <br/>
-        <input type="submit"></input>
-
+        NAME:
+        <br>
+        <input id="name" type="text" name="name" size="50"/>
+        <br>
+        PRICE:
+        <br>
+        <input id="price" type="text" name="price" size="50"/>
+        <br>
+        <input type="submit" value="add new goods">
     </form>
-</center>
+</div>
 </body>
 </html>

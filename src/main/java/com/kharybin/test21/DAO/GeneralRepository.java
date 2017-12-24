@@ -8,8 +8,9 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Component;
 
 @Component
+@NoRepositoryBean
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public interface GeneralRepository<T extends BaseClass> extends JpaRepository<T, Long> {
+public interface GeneralRepository<T> extends JpaRepository<T, Long> {
 
 }
 
