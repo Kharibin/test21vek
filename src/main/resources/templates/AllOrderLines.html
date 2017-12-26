@@ -33,7 +33,7 @@
                     + ${goodsService.getById(orderLine.getGoodsId()).get(0).getName()}">GoodsID</span></a></td>
                 <td class="ordersList"><span th:text="${orderLine.getCount()}">Count</span></td>
 
-                <td class="ordersList"><a th:href="@{'/editOrderLine/' + ${orderLine.getOrderId()}}">EDIT ORDER LINE</a></td>
+                <td class="ordersList"><a th:href="@{'/editOrderLine/' + ${orderLine.getId()}}">EDIT ORDER LINE</a></td>
                 <td class="ordersList"><a th:href="@{'/deleteOrderLine/' + ${orderLine.id}}">DELETE</a></td>
 
             </tr>

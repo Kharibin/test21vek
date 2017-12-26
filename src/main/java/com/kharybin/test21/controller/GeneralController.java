@@ -136,6 +136,8 @@ public class GeneralController {
     @RequestMapping(value = "/editOrderLine/{id}", method = GET)
     public String editOrderLine(@PathVariable Long id, Model model) {
         model.addAttribute("orderLine", orderLineService.getById(id));
+        model.addAttribute("allOrders", orderService.getAll());
+        model.addAttribute("allGoods", goodsService.getAll());
         return "editOrderLine";
     }
 

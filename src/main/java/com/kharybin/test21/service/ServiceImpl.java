@@ -46,7 +46,9 @@ public class ServiceImpl<T> implements Service<T>{
 
     public void edit(Long id, T newObj) {
         if (repository.existsById(id)) {
+            if (newObj != null)
             repository.save(newObj);
+            else System.out.println("no data to save!");
             /*HibernateProxyHelper.getClassWithoutInitializingProxy(repository.getOne(id));
             //if (old.getClass().equals(newObj.getClass())) {
                 for (Field x : old.getClass().getDeclaredFields()) {
@@ -71,7 +73,7 @@ public class ServiceImpl<T> implements Service<T>{
 
     public void delete(Long id) {
         if (repository.existsById(id)) repository.deleteById(id);
-        else System.out.println("FAILED TO DELETE!!! NO SUCH OBJ!  (id = " + id);
+        else System.out.println("FAILED TO DELETE!!! NO SUCH OBJ!  (id = " + id + ")");
     }
 
 
@@ -84,7 +86,7 @@ public class ServiceImpl<T> implements Service<T>{
         List<T> newList = new ArrayList<T>();
         if (repository.existsById(id)) {
             newList.add((T)repository.getOne(id));
-        } else System.out.println("FAILED TO GET!!! NO SUCH OBJ!  (id = " + id);
+        } else System.out.println("FAILED TO GET!!! NO SUCH OBJ!  (id = " + id + ")");
         return newList;
     }
 }

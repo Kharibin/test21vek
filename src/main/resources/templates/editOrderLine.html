@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new order line</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="inputForm">
+    <h3>Add new order line</h3>
+    <form method="POST" th:object="${orderLine}">
+        <br>
+        Order:
+        <br>
+        <div th:unless="${#lists.isEmpty(allOrders)}">
+            <select title="ORDER" name="orderId" class="selectVal" >
+                <option th:each="order : ${allOrders}" th:value="${order.getId()}"
+                        th:text="${order.getClient()} + ' ' + ${order.getDate()} + ' ' + ${order.getAddress()}">
+                    Wireframe
+                </option>
+            </select>
+        </div>
+
+        <div th:if="${#lists.isEmpty(allOrders)}">
+            <p><a href="/addOrder">Add new order</a> </p>
+        </div>
+        <br>
+        Goods:
+        <br>
+        <div th:unless="${#lists.isEmpty(allGoods)}">
+            <select title="GOODS" name="goodsId" class="selectVal" th:default="${orderLine.get(0).getGoodsId()}">
+                <option th:each="goods : ${allGoods}" th:value="${goods.getId()}"
+                        th:text="${goods.getName()} + ' ' + ${goods.getPrice()}">Wireframe
+                </option>
+            </select>
+        </div>
+        <br>
+        Count:
+        <br>
+        <input title="COUNT" type="text" name="count" size="50" class="selectVal" th:value="${orderLine.get(0).getCount()}"/><br/>
+        <br>
+        <input type="submit"/>
+    </form>
+</div>
+</body>
+</html>
