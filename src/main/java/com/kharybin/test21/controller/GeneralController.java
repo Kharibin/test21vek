@@ -51,7 +51,7 @@ public class GeneralController {
 
     @RequestMapping("/")
     public String home() {
-        return "home";
+        return "/home.html";
     }
 
     @RequestMapping("/allOrderLines")

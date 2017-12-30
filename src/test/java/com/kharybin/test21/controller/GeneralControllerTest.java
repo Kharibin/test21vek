@@ -1,65 +1,79 @@
 package com.kharybin.test21.controller;
 
 import com.kharybin.test21.Test21Application;
-import com.kharybin.test21.model.Goods;
-import com.kharybin.test21.model.Order;
-import com.kharybin.test21.model.OrderLine;
-import com.kharybin.test21.service.Service;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runner.notification.Failure;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class GeneralControllerTest {
 
-    @Mock
-    Service<Order> orderServiceMock;
-
-    @Mock
-    Service<Goods> goodsServiceMock;
-
-    @Mock
-    Service<OrderLine> orderLineServiceMock;
+    @Autowired
+    MockMvc mockMvc;
 
     @InjectMocks
-    GeneralController generalControllerTest;
-
-    static MockMvc mockMvc;
-    @BeforeClass
-    public static void setupTest() {
-        mockMvc = standaloneSetup(new Test21Application()).build();
-    }
+    Test21Application test21Application;
 
     @Test
     public void homeTest() throws Exception {
         mockMvc.perform(get("/"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("/home.html"));
     }
 
     @Test
-    public void allOrderLines() {
+    public void allOrderLines() throws Exception {
+        mockMvc.perform(get("/allOrderLines"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("allOrderLines"
+                        , "orderService", "goodsService"));
     }
 
     @Test
-    public void allOrders() {
+    public void allOrders() throws Exception {
+        mockMvc.perform(get("/allOrders"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("allOrders"));
     }
 
     @Test
-    public void allGoods() {
+    public void allGoods() throws Exception {
+        mockMvc.perform(get("/allGoods"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("allGoods"));
+        }
+
+    @Test (expected = AssertionError.class)
+    public void orderLineByIdFail() throws Exception {
+        mockMvc.perform(get("/orderLineById/").param("searchID", String.valueOf(1)))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("allOrderLines"))
+                .andExpect(MockMvcResultMatchers.view().name("allOrderLines.html"));
     }
 
     @Test
-    public void orderLineById() {
+    public void orderLineById() throws Exception {
+        mockMvc.perform(get("/orderLineById/").param("searchID", String.valueOf(1)))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("/noSuchOrderLine"));
     }
+
+
 
     @Test
     public void orderById() {
