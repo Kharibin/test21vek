@@ -23,7 +23,7 @@ export class GoodsAddFormComponent implements OnInit {
   add(name: string, price: number): void {
     name = name.trim();
     if (!name||!price) { return; }
-    console.log(name + ' ' + price)
+    console.log(name + ' ' + price);
     this.goodsService.addNewGoods({name, price} as Goods).subscribe();
     this.goodsUpdated.emit();
   }

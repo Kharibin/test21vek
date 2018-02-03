@@ -22,4 +22,14 @@ export class GoodsServiceService {
     console.log(goods);
     return this.httpClient.post<Goods>('/addGoods', goods/*, httpOptions*/)
   }
+
+  deleteGoods(goods :Goods) :Observable<Goods>{
+    console.log('trying to delete ' + goods);
+    return this.httpClient.post<Goods>('/deleteGoods', goods);
+  }
+
+  updateGoods(goods :Goods) :Observable<Goods>{
+    console.log('trying to update Goods('+goods.id +')to ' + goods.name +' ' + goods.price);
+    return this.httpClient.post<Goods>('/updateGoods', goods)
+  }
 }

@@ -1,11 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-
-
 import {TabViewModule} from 'primeng/primeng';
 import {ButtonModule} from 'primeng/button';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -20,6 +16,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {GoodsServiceService} from "./goods-page/goods-service.service";
 import {TableModule} from "primeng/components/table/table";
 import { GoodsEditFormComponent } from './goods-page/goods-edit-form/goods-edit-form.component';
+import {DialogModule} from 'primeng/dialog';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -41,7 +39,9 @@ import { GoodsEditFormComponent } from './goods-page/goods-edit-form/goods-edit-
     ButtonModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    DialogModule,
+    FormsModule
   ],
   providers: [GoodsServiceService],
   bootstrap: [AppComponent]

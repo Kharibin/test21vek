@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 public class GeneralRestController {
@@ -103,6 +102,25 @@ public class GeneralRestController {
     public Goods processNewGoods(@RequestBody Goods goods) {
         goodsService.add(goods);
         System.out.println("/addGoods link requested");
+        System.out.println(goods.getName() + " " + goods.getPrice());
+        return goods;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/deleteGoods", method = POST)
+    public Goods deleteGoods(@RequestBody Goods goods) {
+        System.out.println(goods.getName());
+        goodsService.delete(goods.getId());
+        System.out.println("/deleteGoods link requested");
+        System.out.println(goods.getName() + " " + goods.getPrice());
+        return goods;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/updateGoods", method = POST)
+    public Goods updateGoods(@RequestBody Goods goods) {
+        goodsService.edit(goods.getId(), goods);
+        System.out.println("/updateGoods link requested");
         System.out.println(goods.getName() + " " + goods.getPrice());
         return goods;
     }
