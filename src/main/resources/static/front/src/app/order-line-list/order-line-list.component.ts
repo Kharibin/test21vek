@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {OrderLine} from "./orderLine";
+import {OrderLineService} from "./order-line-service";
 
 @Component({
   selector: 'app-order-line-list',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderLineListComponent implements OnInit {
 
-  constructor() { }
+  @Input('orderID')
+  orderId: number;
+  orderLineList: OrderLine[];
+  selectedOrderLine: OrderLine;
+  newOrderLine: boolean;
+  @Input('service')
+  service: OrderLineService;
+  cols: any[];
+
+  constructor() {
+  }
 
   ngOnInit() {
+    this.cols = [
+      {field: 'id', header: 'Id'},
+      {field: 'orderId', header: 'Order ID'},
+      {field: 'goodsId', header: 'Goods ID'},
+      {field: 'count', header: 'Count'}
+    ]
   }
 
 }

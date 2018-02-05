@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {GoodsServiceService} from "../goods-service.service";
-import {Goods} from "../goods";
+import {GoodsServiceService} from "./goods-service.service";
+import {Goods} from "./goods";
+import {FrontServiceService} from "../front-service.service";
+import {GoodsService} from "./goods-service";
 
 @Component({
   selector: 'app-goods-list',
@@ -10,22 +12,22 @@ import {Goods} from "../goods";
 export class GoodsListComponent implements OnInit {
 
   cols: any[];
-
   newGoods: boolean;
-
   @Output('addedNewGoods') goodsUpdated = new EventEmitter();
-
   displayDialog: boolean;
-
-  @Input('goodsForTable')
+  /*@Input('goodsForTable')*/
   goodsList: Goods[];
-
   selectedGoods: Goods;
 
   @Input('service')
-  goodsService: GoodsServiceService;
+  goodsService: GoodsService;
 
   constructor() {
+  }
+
+  getData(){
+    this.goodsService.getGoodsList().subscribe(data=> this.goodsList = data)
+    console.log(this.goodsList)
   }
 
   ngOnInit() {
@@ -34,6 +36,9 @@ export class GoodsListComponent implements OnInit {
       {field: 'name', header: 'Name'},
       {field: 'price', header: 'Price'}
     ];
+
+    this.getData();
+    setInterval(() => this.getData(), 10000)
   }
 
   onRowSelect(event) {

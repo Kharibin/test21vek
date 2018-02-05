@@ -125,5 +125,40 @@ public class GeneralRestController {
         return goods;
     }
 
+    @CrossOrigin
+    @RequestMapping("/allOrders")
+    public List<Order> allOrders() {
+        System.out.println("/allOrders link requested");
+        return orderService.getAll();
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/addOrder", method = POST)
+    public Order processNewOrder(@RequestBody Order order) {
+        orderService.add(order);
+        System.out.println("/addOrder link requested");
+        System.out.println(order.getAddress() + " " + order.getClient() + ' ' + order.getDate());
+        return order;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/deleteOrder", method = POST)
+    public Order deleteOrder(@RequestBody Order order) {
+        System.out.println(order.getAddress());
+        orderService.delete(order.getId());
+        System.out.println("/deleteOrder link requested");
+        System.out.println(order.getClient() + " " + order.getDate());
+        return order;
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/updateOrder", method = POST)
+    public Order updateOrder(@RequestBody Order order) {
+        orderService.edit(order.getId(), order);
+        System.out.println("/updateOrder link requested");
+        System.out.println(order.getClient() + " " + order.getDate() + " " + order.getAddress());
+        return order;
+    }
+
 
 }
